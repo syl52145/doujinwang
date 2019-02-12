@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>银行卡绑定</title>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<style type="text/css">
+			* {
+				font-family: "微软雅黑";
+			}
+		</style>
+	</head>
+	<body>
+		<!-- 头部 -->
+		<header class="mui-bar mui-bar-nav black theme-color">
+			<a class="mui-icon mui-icon-left-nav" style="color: #fff;" href="JavaScript:history.go(-1)"></a>
+			<h1 class="mui-title" style="color: #fff;">银行卡绑定</h1>
+		</header>
+		<div class="mui-content">
+			<center>
+				<div style="margin-top: 35px;">
+					<span style="margin-right: 5px;">银行卡号</span>
+					<input type="text" placeholder="请输入银行卡号" style="width: 70%;border-radius: 10px;" id="back_number">
+				</div>
+			</center>
+			<div style="margin-left: 95px;">
+				<input type="text" placeholder="开户银行" style="width: 94%;border-radius: 10px;" id="back_name">
+				<input type="text" placeholder="开户银行所在地" style="width: 94%;border-radius: 10px;" id="back_address">
+				<input type="text" placeholder="姓名" style="width: 94%;border-radius: 10px;" id="user_name">
+			</div>
+			<center>
+				<button type="button" class=".mui-btn-block theme-color" style="width: 80%; margin-top: 340px;border-radius: 10px;" id="btn">确定</button>
+			</center>
+		</div>
+		<script type="text/javascript">
+			var data = JSON.parse(localStorage.getItem("user"));
+			console.log(user)
+			$("#btn").click(function() {
+				if(!$("#back_number").val()){
+					mui.toast("银行卡号不能为空")
+					return;
+				}
+				if(!$("#back_name").val()){
+					mui.toast("开户银行不能为空")
+					return;
+				}
+				if(!$("#back_address").val()){
+					mui.toast("开户银行所在地不能为空")
+					return;
+				}
+				if(!$("#user_name").val()){
+					mui.toast("姓名不能为空")
+					return;
+				}
+				data.back_number=$("#back_number").val();
+				data.back_name=$("#back_name").val();
+				data.user_name=$("#user_name").val();
+				data.back_city = $("#back_address").val()
+				$.ajax({
+					type:"POST",
+					url:url()+"/api/member_back",
+					data: data,
+					success:function(data) {
+						//console.log(data)
+						if(data.status == 200) {
+							mui.toast("绑定成功");
+							setTimeout(function(){
+								location.href = "Personal_information.html"
+							},1000)
+						}
+						if(data.status==-1){
+							mui.toast(data.data)
+						}
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

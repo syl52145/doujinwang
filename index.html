@@ -1,1 +1,281 @@
-<h1>这是我的第一个html</h1>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>斗金网</title>
+		<script src="js/jquery.js"></script>
+		<script src="js/mui.min.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/swiper.min.css">
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<script src="bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+	</head>
+	<style type="text/css">
+		body {
+			margin-bottom: 70px;
+		}
+
+		.c input {
+			width: 23%;
+			padding: 0;
+			text-align: center;
+			margin-top: 15px;
+			border-radius: 5px;
+			height: 30px;
+			border: 1px solid #ccc;
+			color: #ccc;
+			align-items: center;
+			font-size:12px;
+			margin-bottom: 0;
+		}
+		.a,.b,.d{
+			width: 100%;
+			padding:0 8%;
+			margin-bottom: 20px;
+		}
+		.flex{
+			display: flex;
+			justify-content: space-between;
+		}
+		.a .flex{
+			margin-bottom: 10px;
+		}
+		.flex1{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.tishi{
+			margin: 0 13px;
+			padding:0 5px;
+			font-size: 12px;
+			height: 35px;
+			background: #eee;
+			line-height: 35px;
+			margin-bottom: 10px;
+		}
+		.mui-slider-item{
+			border-top:0 !important;
+		}
+		 a:hover{
+			 text-decoration:none;
+		}
+		.mui-slider{
+			padding:0 15px;
+			box-sizing: border-box;
+			
+		}
+		
+		#sliderSegmentedControl{
+			background: #666;
+			color: #fff;
+		}
+		.mui-slider-group{
+			margin: 0 15px;
+		}
+		.mui-slider-group>div>ul{
+			padding: 15px;
+			font-size: 12px;
+		}
+		.mui-table-view{
+			background: #eee;
+			height: 150px;
+			color: #000;
+		}
+		#sliderSegmentedControl a{
+			color: #fff !important;
+		}
+		#sliderSegmentedControl a.mui-active{
+			background: #ef4a3f;
+		}
+		.mui-table-view:after{
+			height: 0;
+		}
+	</style>
+	<body>
+		<div class="mui-content" id="app">
+			<!-- 轮播图 -->
+			<div class="swiper-container">
+				<div class="swiper-wrapper" style="height: 170px">
+					<div class="swiper-slide" style="background-image:url(imges/1.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imges/2.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imges/3.jpg)"></div>
+				</div>
+				<!-- Add Pagination -->
+				<!-- <div class="swiper-pagination"></div> -->
+			</div>
+		</div>
+		<form class="c" style="margin-top: 10px;">
+			<label style="margin-left: 13px;">助力比例</label><br>
+			<div class="a">
+				<div class="flex">
+					<input type="text" class="mui-input-clear" readonly="readonly" onfocus="this.blur();" value="1:0" name="zhuli">
+					<input type="text" class="mui-input-clear" readonly="readonly" onfocus="this.blur();" value="1:5" name="zhuli" >
+					<input type="text" class="mui-input-clear" readonly="readonly" onfocus="this.blur();" value="1:10" name="zhuli" >
+					<input type="text" class="mui-input-clear" readonly="readonly"  onfocus="this.blur();" value="1:20" name="zhuli">
+				</div>
+				  
+				
+			</div>
+			<div class="tishi">
+					支付保证金1万元可以获得<span style="color: gold;">11</span>万元资金实盘账号的操作权。
+				</div>
+			<label style="margin-left: 13px;">风险保证金</label><br>
+			<div class="b">
+				<div class="flex">
+					<input type="text" class="mui-input-clear" readonly="readonly" onfocus="this.blur();" value="1000￥"  val = "1000" name="money">
+					<input type="text" class="mui-input-clear" readonly="readonly" onfocus="this.blur();" value="5000￥" val = "5000" name="money">
+					<input type="text" class="mui-input-clear" readonly="readonly" onfocus="this.blur();" value="1万￥" val = "10000" name="money">
+					<input type="text" class="mui-input-clear" readonly="readonly" onfocus="this.blur();"  value="2万￥"  val = "20000" name="money">
+				</div>
+				<div class="flex">
+					<input type="text" class="mui-input-clear" readonly="readonly" onfocus="this.blur();"  value="5万￥" val = "50000" name="money">
+					<input type="text" class="mui-input-clear" readonly="readonly" onfocus="this.blur();" value="10万￥"  val = "100000" name="money">
+					<input type="text" class="mui-input-clear" readonly="readonly" onfocus="this.blur();" value="20万￥" val = "200000" name="money">
+					<input type="text" class="mui-input-clear" readonly="readonly" onfocus="this.blur();" value="30万￥" val = "300000" name="money">
+				</div>
+				<div class="flex1">
+					<input type="text" name="money" id="money" value=""  style="width: 93%;border: none;border-bottom: 1px solid #ccc;"
+				 placeholder="请输入其他金额">
+				</div>
+				
+			</div>
+			<label style="margin-left: 13px;">风险控制</label><br>
+			 <div id="slider" class="mui-slider">
+			 	<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted bg-w">
+			 		<a class="mui-control-item mui-active" href="#item1mobile">
+			 			交易品种
+			 		</a>
+			 		<a class="mui-control-item" href="#item2mobile">
+			 			临板强平
+			 		</a>
+					<a class="mui-control-item" href="#item3mobile">
+						持仓风险
+					</a>
+					<a class="mui-control-item" href="#item4mobile">
+						资金风控
+					</a>
+			 	</div>
+			 	<!-- <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div> -->
+			 	
+			 		
+			 </div>
+			 <div class="mui-slider-group">
+				 <div id="item1mobile" class="base-info md-f1 mui-slider-item mui-control-content detailInfos md-box md-ver mui-active"
+				 	 style="border-bottom: none;">
+				 		<ul class="mui-table-view">
+				 			选拔账户可交易合约≥50000手的合约（原油期货≥10000手、金融期货≥5000手）。如果用户持有的合约被定义为非交易合约（详情交易规则），那么只能平仓，不能开新仓，同时我们讲根据市场情况调整可做合约，并保留最终解释权。
+				 		</ul>
+				 	</div>
+				 	<div id="item2mobile" class="apply bg md-f1 mui-slider-item mui-control-content detailInfos2 md-box md-ver" style="border-bottom: none;">
+				 		<ul class="mui-table-view">
+				 			选拨账户交易过程中若反向交易涨停品种时，考虑面临较大风险，可能将直接穿仓至亏损免息资金，此时帮投网风控人员有权根据选手账户情况对涨跌品种进行强平或挂单处理，而帮投网病没有义务对反向持仓做处理，选手在管理账户时赢自觉主动规避极端风险，若帮投网风控人员对违规做出挂单处理，选手无权自行撤单，如恶意撤单帮投网有权对选手账户清仓并禁止交易。
+				 		</ul>
+				 	</div>
+				 	<div id="item3mobile" class="apply bg md-f1 mui-slider-item mui-control-content detailInfos2 md-box md-ver" style="border-bottom: none;">
+				 		<ul class="mui-table-view">
+				 			非节假日隔夜持仓不超过盘手风险保证金的3倍，法定节假日（达到或超过3天）隔夜持仓不得高于其自有风险保证金。
+				 		</ul>
+				 	</div>
+				 	<div id="item4mobile" class="apply bg md-f1 mui-slider-item mui-control-content detailInfos2 md-box md-ver" style="border-bottom: none;">
+				 		<ul class="mui-table-view">
+				 			为了保障助力资金的安全，选拔账户设有资金风控强平线。强平线为选拔账户助力资金的103%，即当总资金少于优先资金的103%时强平所有持仓禁止开仓。比如10万风险保险金，100万选拔助力资金，总资金为110万，当总资金少于103万时触发强平。
+				 		</ul>
+				 	</div>
+				 </div>
+			<!-- <input type="submit" name="" id="" value="充值" style="width: 93%;" style="background-color: ;"/> -->
+			<center style="margin-top: 30px;">
+				<button type="button" class=".mui-btn-block theme-color" style="width: 93%;border-radius: 10px;">提交</button>
+			</center>
+		</form>
+		</div>
+		<script type="text/javascript" src="js/footer.js"></script>
+		<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/swiper.min.js"></script>
+		<script src="js/common.js"></script>
+		<script>
+			
+			(function () {
+				loginIndex();		
+				var swiper = new Swiper('.swiper-container', {
+					// pagination: '.swiper-pagination',
+					effect: 'coverflow',
+					// 默认图片第几张
+					initialSlide: 1,
+					// 轮播时间
+					autoplay: 2000,
+					centeredSlides: true,
+					slidesPerView: 'auto',
+					coverflow: {
+						rotate: 50,
+						stretch: 1,
+						depth: 100,
+						modifier: 1,
+						slideShadows: true
+					}
+				});
+				var a = "",b = "";
+				var user =JSON.parse(localStorage.user);
+				// 助力比例
+				$(".a input[type=text]").click(function(e) {
+					e.preventDefault();
+					$('.a input[type=text]').removeClass('theme-color');
+					$(this).addClass('theme-color');
+					a = $(this).val() //输出当前点击的值
+				})
+				// 风险保证金
+				$(".b input[type=text]").click(function(e) {
+					e.preventDefault();
+					$('.b input[type=text]').removeClass('theme-color');
+					$(this).addClass('theme-color');
+					b = $(this).attr('val') //输出当前点击的值
+					d = b;
+				})
+				
+				
+
+				$('button[type="button"]').click(function() {
+					var bVal=$(".b #money").val()
+					if(bVal){
+						var reg=/^[0-9]*$/
+						if(!reg.test(bVal)){
+							mui.toast("风险保证金请输入数字")
+							return;
+						}else{
+							b=bVal
+						}
+					}
+					if(!a) {
+						mui.toast("请选择助力比例");
+						return;
+					}
+					if (!b) {
+						mui.toast("请选择风险保证金");
+						return;
+					}
+					
+					var money = b;
+					var bili = a;
+					// console.log(phone,password);
+					var data = {
+						money,
+						bili,
+						sign:user.sign,
+						member_id:user.member_id
+					};
+					sessionStorage.data=JSON.stringify(data);
+					location.href="page/Submit_orders.html"
+				
+				});
+			})()
+		</script>
+	</body>
+</html>

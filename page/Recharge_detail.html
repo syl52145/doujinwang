@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>提现详情</title>
+		<script src="../js/jquery.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<style type="text/css">
+			body {
+				background-color: #fff;
+			}
+
+			* {
+				font-family: "微软雅黑";
+			}
+
+			.mui-card-header:after {
+				top: none;
+			}
+
+			.Span span {
+				display: block;
+				margin: 15px 20px;
+				font-size: 17px;
+				color: #ccc;
+			}
+
+			.Span span p {
+				margin: 10px 78px;
+				font-size: 17px;
+				color: #ccc;
+				display: inline-block
+			}
+
+			.mui-content {
+				background-color: #fff;
+			}
+
+			i {
+				font-style: normal;
+				color: #080808;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- 头部 -->
+		<header class="mui-bar mui-bar-nav black theme-color">
+			<a class="mui-icon mui-icon-left-nav" style="color: #fff;" href="Recharge_list.html"></a>
+			<h1 class="mui-title" style="color: #fff;">提现详情</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-card" style="border-radius: 10px;">
+				<!--内容区-->
+				<div class="mui-card-content" style="height: 200px;border-bottom: 1px solid #ccc;">
+					<span style="font-size: 20px;font-weight: 600;margin: 20px 20px;display: inline-block;">提现金额&nbsp;:</span>
+					<center id="money">
+						<!-- <span style="font-size: 50px;line-height: 100px;color: red;">888<i style="font-size: 30px;color: red;">￥</i></span> -->
+					</center>
+				</div>
+				<div class="mui-card-content Span" id="status" style="border-bottom: 1px solid #ccc;">
+					<!-- <span>入金状态:&nbsp;成功</span>
+					<span>审核日期:&nbsp;2018-02-12</span>
+					<span>提现有效</span> -->
+				</div>
+				<div class="mui-card-content Span" id="detail" style="height: 230px;">
+					<!-- <span><i>订单编号:</i>&nbsp;<p style="margin:10px 0;">1207309237063407</p></span>
+					<span><i>手机号码:</i>&nbsp;<p style="margin:10px 0;">18888888888</p></span>
+					<span><i>银行卡号:</i>&nbsp;8888-8888-8888-88x<p>中国建设银行</p>
+						<p>某某公司</p>
+					</span> -->
+					
+				</div>
+			</div>
+		</div>
+		<script src="../js/common.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				var data = user();
+				var order = getNum();
+				data.order = order;
+				$.get(url()+'/api/order_info',data,function(data){
+					console.log(data)
+					if(data.status==200){
+						var data=data.data;
+						var date = dateTime(data.update_time)
+						$('#money').append(`<span style="font-size: 40px;line-height: 100px;color: red;">${data.money}<i style="font-size: 22px;color: red;">￥</i></span>`)
+						$('#status').append(`<span>入金状态:&nbsp;${data.pay_result==1?'成功':'审核中'}</span>
+							<span>审核日期:&nbsp;${date}</span>
+							<span>${data.pay_result==1?'提现有效':' '}</span>`)
+						if(data.type==0){
+							$('#detail').append(`<span><i>订单编号:</i>&nbsp;<p style="margin:10px 0;">${data.order}</p></span>
+							<span><i>手机号码:</i>&nbsp;<p style="margin:10px 0;">${data.phone}</p></span>
+							<span><i>银行卡号:</i>&nbsp;8888-8888-8888-88x<p>中国建设银行</p>
+							</span>`)
+						}else{
+							$('#detail').append(`<span><i>订单编号:</i>&nbsp;<p style="margin:10px 0;">${data.order}</p></span>
+							<span><i>手机号码:</i>&nbsp;<p style="margin:10px 0;">${data.phone}</p></span>
+							<span><i>充值方式:</i>&nbsp;${data.type==1?"支付宝":"微信"}
+							</span>`)
+						}		
+					}
+					if(data.status==-1){
+						mui.toast(data.data)
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>入金</title>
+		<script src="../js/jquery.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+				font-family: "微软雅黑";
+			}
+
+			body {
+				background-color: #fff;
+			}
+
+			.mui-table-view-cell:after {
+				left: 0px;
+			}
+
+			.HeadPortrait {
+				display: inline-block;
+			}
+
+			p {
+				display: inline-block;
+			}
+
+			.mui-table-view-cell>a:not(.mui-btn) {
+				margin: 0 0;
+			}
+
+			.mui-table-view-cell:after {
+				background-color: #fff;
+			}
+
+			i {
+				font-style: normal;
+				margin-left: 6px;
+			}
+
+			.UlSpan li a span {
+				color: #ccc;
+				font-size: 13px;
+				display: block;
+			}
+			.UlSpan li:nth-child(n) {
+				border-bottom: 1px solid #ccc;
+			}
+			.notSel{
+				position: absolute;
+				top: 50%;
+				right: 15px;
+				width:21px;
+				height:21px;
+				transform: translateY(-50%);
+				border: 1.5px solid #666;
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.notSel.sel{
+				
+				border: 1.5px solid red;
+			}
+			.sel .sel-li{
+				width:15px;
+				height:15px;
+				background: red;
+				border-radius: 50%;
+			}
+			.submit{
+				background: #fff;
+				padding:20px 0;
+				
+			}
+			.submit1{
+				position: absolute;
+				bottom:20px;
+				width: 100%;
+			}
+			
+			.mui-popup-title {
+				font-size: 16px;
+				font-weight: 500;
+				text-align: center;
+			}
+			.mui-popup-inner {
+				position: relative;
+				padding: 15px 15px 10px;
+				border-radius: 0px;
+				overflow: hidden;
+			}
+			.mui-popup-button.mui-popup-button-bold {
+				font-weight: normal; 
+			}
+			.mui-popup-button {
+				color: red;
+				}
+			.mui-popup{
+				border-radius:0px;
+			}
+			.mui-popup-button:first-child {
+				border-radius:0px;
+			}
+			.mui-popup-text{
+				height: 240px;
+				text-align: left;
+				overflow-y: auto;
+				
+			}
+			.mui-popup-text::-webkit-scrollbar {display:none}
+		
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav black theme-color">
+			<a class="mui-icon mui-icon-left-nav" style="color: #fff;" href="center.html"></a>
+			<h1 class="mui-title" style="color: #fff;">入金</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view" style="margin-top: 0px;">
+				<li class="mui-table-view-cell" id="user" style="position: relative;border-bottom: 1px solid #CCCCCC;">
+					<!-- <div class="HeadPortrait">
+						<img src="../imges/1.jpg" style="width: 80px;height: 80px;border-radius: 50%;">
+					</div>
+					<span style="margin: 10px 20px;position: absolute;">MARSHMELLO</span>
+					<span style="margin:50px 20px;position: absolute;">余额: <p style="color: red;">100<p style="color: red;font-size: 10px;">￥</p>
+						</p></span> -->
+				</li>
+				<ul class="mui-table-view mui-table-view-radio UlSpan">
+					<!-- <li class="mui-table-view-cell ">
+						<a class="mui-navigate-right">
+							<span style="font-size: 20px;color: #000000;">2018-2-12</span><br>
+							<span style="color: red;font-size: 20px;margin-top: -13px;">1000￥<i style="color: #ccc;font-size: 15px;">(&nbsp;1:5&nbsp;)</i></span><br>
+							<span style="margin-top: -18px;">持仓风控</span><br>
+							<span style="margin-top: -20px;">订单编号:&nbsp;1207309237063407</span>
+						</a>
+						<span class="notSel">
+							<span class="sel-li"></span>
+						</span>
+					</li> -->
+					<!-- <li class="mui-table-view-cell ">
+						<a class="">
+							<span style="font-size: 20px;color: #000000;">2018-2-12</span><br>
+							<span style="color: red;font-size: 20px;margin-top: -13px;">1000￥<i style="color: #ccc;font-size: 15px;">(&nbsp;1:5&nbsp;)</i></span><br>
+							<span style="margin-top: -18px;">持仓风控</span><br>
+							<span style="margin-top: -20px;">订单编号:&nbsp;1207309237063407</span>
+							
+						</a>
+						<span class="notSel sel">
+							<span class="sel-li"></span>
+						</span>
+					</li> -->
+				</ul>
+			</ul>
+			<center class="submit1 submit" >
+				<button type="button" class=".mui-btn-block theme-color" style="width: 85%; height: 40px;border-radius: 5px;">申请提交</button>
+			</center>
+		</div>
+		<script src="../js/common.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$(".mui-table-view.mui-table-view-radio").on('click','.mui-table-view-cell',function () {
+					$(this).find("span.notSel").toggleClass("sel");
+					$(this).toggleClass("choose");
+				})
+				var data=JSON.parse(localStorage.user);
+				if(!data){
+					mui.toast('请登录账号')
+				}
+				$.get(url()+'/api/rujin',data,function(data){
+					if(data.status==200){
+						$('#user').append(
+							`<div class="HeadPortrait">
+						<img src=${url()+data.member_img} style="width: 80px;height: 80px;border-radius: 50%;">
+						</div>
+						<span style="margin: 10px 20px;position: absolute;">${data.member_name}</span>
+						<span style="margin:50px 20px;position: absolute;">余额: <p style="color: red;">${data.yu_money}<p style="color: red;font-size: 10px;">￥</p>
+						</p></span>`
+						)
+						if(!data.data){
+							return;
+						}else{
+							var data=data.data
+						}
+						if(data.length>2){
+							$('.submit').removeClass('submit1')
+						}
+						for(var i=0;i<data.length;i++){
+							var date = dateTime(data[i].update_time);
+							$('.mui-table-view.mui-table-view-radio').append(
+							`<li class="mui-table-view-cell" data-id=${data[i].order_id}>
+								<a class="">
+									<span style="font-size: 20px;color: #000000;">${date}</span><br>
+									<span style="color: red;font-size: 20px;margin-top: -13px;">${data[i].money}￥<i style="color: #ccc;font-size: 15px;">(&nbsp;${data[i].bili}&nbsp;)</i></span><br>
+									<span style="margin-top: -18px;">${data[i].invest_type==0?'交易品种':data[i].invest_type==1?'临版强平':data[i].invest_type==2?'持仓风险':'资金风控'}</span><br>
+									<span style="margin-top: -20px;">订单编号:&nbsp;${data[i].order}</span>
+								</a>
+								<span class="notSel">
+									<span class="sel-li"></span>
+								</span>
+							</li>`)
+						}
+						
+					}
+				})
+				
+				$('button[type="button"]').click(function(){
+					var chooses = $('.choose')
+					if(chooses.length==0){
+						return;
+					}else{
+						var arr=[];
+						$.each(chooses,function(index,value){
+							arr.push($(value).attr('data-id'))
+						})
+						arr = arr.join(',')
+					}
+					data.order_ids=arr;
+					$.post(url()+'/api/rujin_h',data,function(res){
+						if(res.status==200){
+							mui.toast(res.data);
+							setTimeout(function(){
+								location.href = 'center.html'
+							},1000)
+						}
+					})
+				})
+				
+						var btnArray = ['确定'];
+						var text = '尊敬的客户：<br>根据中国证监会的规定，现向您提供本《期货交易风险说明书》。期货交易采取保证金交易方式，具有杠杆性风险，可能产生巨大亏损，损失的总额可能超过您存放在期货公司的全部初始保证金以及追加保证金。您应当充分理解并遵循“买卖自负”的金融市场原则，充分认识期货交易风险，自行承担交易结果。<br>您在考虑是否进行期货交易时，应当明确以下几点：<br>一、您在期货市场进行交易，假如市场走势对您不利导致您的账户保证金不足时，期货公司会按照期货经纪合同约定的时间和方式通知您追加保证金，以使您能继续持有未平仓合约。如您未于规定时间内存入所需保证金，您持有的未平仓合约将可能在亏损的情况下被强行平仓，您必须承担由此导致的一切损失。<br>二、您必须认真阅读并遵守期货交易所和期货公司的业务规则，如果您无法满足期货交易所和期货公司业务规则规定的要求，您所持有的未平仓合约将可能根据有关规则被强行平仓，您必须承担由此产生的后果。<br>三、在某些市场情况下，您可能会难以或无法将持有的未平仓合约平仓。例如，这种情况可能在市场达到涨跌停板时出现。出现这类情况，您的所有保证金有可能无法弥补全部损失，您必须承担由此导致的全部损失。<br>四、由于国家法律、法规、政策的变化、期货交易所交易规则的修改、紧急措施的出台等原因，您持有的未平仓合约可能无法继续持有，您必须承担由此导致的全部损失。<br>五、由于非期货交易所或者期货公司所能控制的原因，例如：地震、水灾、火灾等不可抗力因素或者计算机系统、通讯系统故障等，可能造成您的指令无法成交或者无法全部成交，您必须承担由此导致的损失。<br>六、在国内期货交易中，所有的交易结果须以当日交易所或结算机构的结算数据为依据。如果您利用盘中即时回报的交易结果作进一步的交易，您可能会承担额外的风险。<br>七、“套期保值”交易同投机交易一样，同样面临价格波动引起的风险。<br>八、如果您未遵守中国证监会关于期货保证金安全存管的规定，将可能会影响您的期货保证金的安全性。<br>九、利用互联网进行期货交易时将存在但不限于以下风险，您将承担由此导致的损失：<br>（一）由于无法控制和不可预测的系统故障、设备故障、通讯故障、电力故障、网络故障及其它因素，可能导致交易系统非正常运行甚至瘫痪，使您的交易指令出现延迟、中断、数据错误等情况；<br>（二）由于网上交易系统存在被网络黑客和计算机病毒等攻击的可能性，由此可能导致交易系统故障，使交易无法进行及行情信息出现错误或延迟；<br>（三）由于互联网上的数据传输可能因通信繁忙等原因出现延迟、中断、数据错误或不完全，从而使网上交易及行情出现延迟、中断、数据错误或不完全；<br>（四）由于您未充分了解期货交易及行情软件的实际功能、信息来源、固有缺陷和使用风险，导致您对软件使用不当，造成决策和操作失误；<br>（五）您的网络终端设备及软件系统与期货公司所提供的网上交易系统不兼容，可能导致无法下达委托或委托失败；<br>（六）如果您缺乏网上交易经验，可能因操作不当造成交易失败或交易失误；<br>（七）您的密码失密或被盗用。<br>本《期货交易风险说明书》无法揭示从事期货交易的所有风险和有关期货市场的全部情形。您在入市交易之前，应当全面了解期货交易法律法规、期货交易所及期货公司的业务规则，全面评估自身的经济实力、产品认知能力、风险控制能力、生理及心理承受能力（仅对自然人客户而言）等，审慎决定是否参与期货交易。';
+						mui.confirm(text,'期货交易风险说明书', btnArray, function(e) {
+							if (e.index == 1) {
+								location.reload();
+							} else {
+								return;
+							}
+						})
+						$('.mui-popup-inner').append(`<div style="margin-top:5px;font-size:14px;display:flex;align-items:center;justify-content:flex-start">
+						<input id="cb" type="checkbox" style="margin-bottom:0;"><span style="margin-left:4px;font-size:14px;">我已阅读、理解并同意</span><div>`);
+						$('.mui-popup-buttons').append('<div id="mask" style="position:absolute;width:100%;height:100%;top:0;left:0;z-inex:100;"></div>');
+						
+						$('#cb').click(function(){
+							var isChecked = $('#cb').attr('checked');
+							if(isChecked){
+								$('#mask').css('height','0px')
+							}else{
+								$('#mask').css('height','100%')
+							}
+						})
+						
+					
+				///});
+			})
+			
+			
+			
+		</script>
+		
+	</body>
+</html>

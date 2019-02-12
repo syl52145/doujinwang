@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>个人中心</title>
+		<script src="../js/jquery.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+				font-family: "微软雅黑";
+			}
+
+			body {
+				background-color: #fff;
+			}
+
+			.mui-table-view-cell:after {
+				left: 0px;
+			}
+
+			.HeadPortrait {
+				display: inline-block;
+			}
+
+			p {
+				display: inline-block;
+			}
+
+			.mui-table-view-cell>a:not(.mui-btn) {
+				margin: 0 0;
+			}
+
+			.mui-table-view-cell:after {
+				background-color: #fff;
+			}
+
+			.mui-table-view:after {
+				background-color: #ccc;
+				margin-left: 5%;
+			}
+
+			ul li:nth-child(1):after {
+				width: 0 !important;
+				background-color: #ccc;
+			}
+			ul li:nth-child(n):after {
+				width: 95%;
+				background-color: #ccc;
+				margin-left: 5%;
+			}
+
+			ul li a span {
+				margin: 10px;
+			}
+			.btn {
+				border-color: #ef4a3f;
+				color: #ef4a3f;
+				float: right;
+				padding: 5px 16px;
+				margin-right:20px;
+			}
+			.flex{
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				margin-left:18px;
+			}
+			
+			.ru{
+				display: flex;justify-content: flex-start;
+			}
+			.mui-table-view-cell{
+				padding:8px 15px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content">
+			<ul class="mui-table-view" style="margin-top: 0px;">
+				<li class="mui-table-view-cell" style="display: flex;border-bottom: 1px solid #CCCCCC;">
+					<div class="HeadPortrait">
+						<img id="u-pic" src="" style="width: 80px;height: 80px;border-radius: 50%;">
+					</div>
+					<div class="flex">
+						<span id="u-name" style=""> </span>
+						<span id="u-money" style="margin:5px 0"> </span>
+						<div class="ru">
+							<button type="button" class="btn" onclick="javascrtpt:window.location.href='GolDen.html'">入金</button>
+							<button type="button" class="btn" onclick="javascrtpt:window.location.href='Goldout.html'">出金</button>		
+						</div>
+					</div>
+					
+					
+				</li>
+				<li class="mui-table-view-cell fe" style="">
+					<a class="mui-navigate-right" href="Personal_information.html"><i class="iconfont icon-geren"></i><span>个人信息</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" href="Recharge_list.html"><i class="iconfont icon-icon--"></i><span>充值明细</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" href="To_apply_for_a_refund.html"><i class="iconfont icon-tixian"></i><span>申请提现</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell" style="border-bottom: none;">
+					<a class="mui-navigate-right" href="Refund_list.html"><i class="iconfont icon-zhangdanfeiyongmingxi"></i><span>提现明细</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" href="Golden_details.html"><i class="iconfont icon-shouru"></i><span>入金明细</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" href="Details_of_the_gold.html"><i class="iconfont icon-zhichu"></i><span>出金明细</span>
+					</a>
+				</li>
+				</li>
+
+				<li class="mui-table-view-cell" style="border-top: none;">
+					<a class="mui-navigate-right"><i class="iconfont icon-dianhua"></i><span>联系客服</span>
+					</a>
+				</li>
+			</ul>
+			<center style="background: #fff;margin-bottom:50px;padding:15px 0;">
+				<a href="javascript:;" id="logOut">
+					<button type="button" class=".mui-btn-block" style="width: 80%; background-color: #ef4a3f;color: #fff;border-radius: 10px;height: 40px;" >退出登录</button>
+				</a>
+			</center>
+		</div>
+		<!-- <nav class="mui-bar mui-bar-tab" style="border-top: none;">
+			<a class="mui-tab-item mui-active" href="home.html">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item" href="message.html">
+				<span class="mui-icon iconfont icon-dingdan"></span>
+				<span class="mui-tab-label">订单</span>
+			</a>
+			<a class="mui-tab-item" href="setting.html">
+				<span class="mui-icon mui-icon-person"></span>
+				<span class="mui-tab-label">个人中心</span>
+			</a>
+		</nav> -->
+		<script  type="text/javascript"  src="../js/common.js"></script>
+		<script  type="text/javascript" src="../js/footer.js"></script>
+		
+		<script type="text/javascript">
+			$(function(){
+				login();
+				var data=user();
+				$.get(url()+'/api/member_info',data,function(data){
+					if(data.status==200){
+						var data=data.data;
+						$('#u-pic').attr('src',url()+data.member_img);
+						$('#u-name').html(data.member_name);
+						$('#u-money').html(`余额: <p style="color: red;">${data.money}<p style="color: red;font-size: 10px;">￥</p>
+						</p>`)
+					}else{
+						mui.toast(data.data)
+					}
+				})
+				function logOut(){
+					localStorage.removeItem('user');
+					location.reload();
+				}
+				
+			})
+			document.getElementById("logOut").addEventListener('tap', function() {
+					var btnArray = ['否', '是'];
+					mui.confirm('', '确定退出吗？', btnArray, function(e) {
+						if (e.index == 1) {
+							localStorage.removeItem('user');
+							location.reload();
+						} else {
+							return;
+						}
+					})
+			});
+		</script>
+	</body>
+</html>

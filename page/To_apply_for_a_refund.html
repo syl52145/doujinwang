@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>申请提现</title>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+				font-family: "微软雅黑";
+			}
+		</style>
+	</head>
+	<body>
+		<!-- 头部 -->
+		<header class="mui-bar mui-bar-nav black theme-color">
+			<a class="mui-icon mui-icon-left-nav" style="color: #fff;"href="center.html"></a>
+			<h1 class="mui-title" style="color: #fff;">申请提现</h1>
+		</header>
+		<div class="mui-content">
+			<div>
+				<img src="../imges/1.jpg" style="height: 200px; width: 100%;">
+			</div>
+			<center>
+				<div style="margin-top: 35px;">
+					<span style="margin-right: 20px;">金额</span>
+					<input type="text"placeholder="请输入提现金额" style="width: 70%;border-radius: 10px;" id="money">
+				</div>
+				<div style="margin-top: 15px;position: relative;">
+					<span style="margin-right: 20px;vertical-align: top;">备注</span>
+					<textarea style="width: 70%;border-radius: 10px;height: 100px;" placeholder="提现备注"  id="tixian_info"></textarea>
+				</div>
+			</center>
+			<center style="margin-bottom: 50px;">
+				<button type="button" class=".mui-btn-block theme-color" style="width: 80%;border-radius: 5px;margin-top: 50px;margin-bottom: 20px;height: 40px;" id="btn">申请提现</button>
+			</center>
+		</div>
+		
+		
+		<script type="text/javascript" src="../js/footer.js"></script>
+		<script type="text/javascript">
+			var data = user();
+			$("#btn").click(function() {
+				var money = $("#money").val();
+				var info = $("#tixian_info").val();
+// 				if(!money){
+// 					mui.toast('请填写提现金额')
+// 					return;
+// 				}else{
+// 					var reg = /^\d+$/;
+// 					if(!reg.test(money)){
+// 						mui.toast('请输入正确的金额')
+// 						return;
+// 					}
+// 				}
+				
+				$.ajax({
+					type:"POST",
+					url:url()+"/api/tixian",
+					data:{
+						member_id:data.member_id,
+						sign:data.sign,
+						money:money,
+						tixian_info:info
+					},
+					success:function(data) {
+						if(data.status == 200) {
+							mui.toast("提现处理中");
+							Href('center.html');
+						}else {
+							mui.toast(data.data)
+						}
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

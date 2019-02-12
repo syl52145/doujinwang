@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <script src="../js/mui.min.js"></script>
+  <script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <link href="../css/mui.min.css" rel="stylesheet" />
+  <title>更换头像</title>
+  <style>
+	  body{
+		  background-color: #fff;
+	  }
+    form{position:relative;margin-top: 20%;}
+    .upload{background-color: #816843;color:#fff;width:100px;height:30px;line-height:30px;text-align:center;cursor:pointer;}
+    input{position:absolute;top:0;left:0;height:30px;width:100px;opacity:0;filter:alpha(opacity=0);cursor:pointer;}
+	.mui-content{background-color: #fff;}
+	
+	.mui-show-loading {
+    position: fixed;
+    padding: 5px;
+    width: 120px;
+    min-height: 120px;
+    top: 45%;
+    left: 50%;
+    margin-left: -60px;
+    background: rgba(0, 0, 0, 0.6);
+    text-align: center;
+    border-radius: 5px;
+    color: #FFFFFF;
+    visibility: hidden;
+    margin: 0;
+    z-index: 2000;
+
+    -webkit-transition-duration: .2s;
+    transition-duration: .2s;
+    opacity: 0;
+    -webkit-transform: scale(0.9) translate(-50%, -50%);
+    transform: scale(0.9) translate(-50%, -50%);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+}
+.mui-show-loading.loading-visible {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: scale(1) translate(-50%, -50%);
+    transform: scale(1) translate(-50%, -50%);
+}
+.mui-show-loading .mui-spinner{
+    margin-top: 24px;
+    width: 36px;
+    height: 36px;
+}
+.mui-show-loading .text {
+    line-height: 1.6;
+    font-family: -apple-system-font,"Helvetica Neue",sans-serif;
+    font-size: 14px;
+    margin: 10px 0 0;
+    color: #fff;
+}
+
+.mui-show-loading-mask {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+.mui-show-loading-mask-hidden{
+    display: none !important;
+}
+  </style>
+ </head>
+
+ <body>
+	 <!-- 头部 -->
+	 <header class="mui-bar mui-bar-nav black theme-color">
+	 	<a class="mui-icon mui-icon-left-nav" style="color: #fff;"  href="Edit_the_information.html"></a>
+	 	<h1 class="mui-title theme-color">更换头像</h1>
+	 </header>
+    <form enctype="multipart/form-data" name="form1">
+		<div id="phone">
+			<!-- <input id="f" type="file" name="img" class="imgs" onchange="change()" accept="image/*" id="input_file"/> -->
+		</div>
+         
+        <div class="upload theme-color"> 上传头像</div>
+        <div style="background:#ddd">
+            <img id="preview"  alt="" width="100%" height="300px" name="pic" style="margin-top: 10%;display: block;"/ >
+        </div>
+    </form>
+	<div class="mui-content">
+		<center>
+			<button type="button" class=".mui-btn-block theme-color" style="width: 80%;border-radius: 10px;margin-top: 20%;" id="btn">提交</button>
+		</center>
+	</div>
+    <script src="../js/placeImage.js"></script>
+	<script type="text/javascript">
+		var upic = sessionStorage.upic;
+		$('#preview').attr('src',upic);
+		
+		$("#btn").click(function(){
+			mui.showLoading("图片上传中..","div");
+			//获取图片
+			var formData = new FormData();   
+				for(var i=0;i<$('.imgs').length;i++){
+					formData.append("img[]",$('.imgs')[i].files[0]); //图片
+				}
+			var data = user();
+			formData.append("sign",data.sign); 
+			formData.append("member_id",data.member_id);
+			   $.ajax({
+				  'url': url()+'/api/member_img',
+				  'type': 'POST',
+				  'cache': false,
+				  'data': formData,
+				  'timeout': 5000,
+				  //必须false才会避开jQuery对 formdata 的默认处理 
+				  // XMLHttpRequest会对 formdata 进行正确的处理
+				  'processData': false,
+				  //必须false才会自动加上正确的Content-Type 
+				  'contentType': false,
+				  'xhrFields': {
+					'withCredentials': false
+				  },
+				  success: function(res) {
+					  mui.hideLoading();
+					 //console.log(res);
+					 if(res.status==200){
+						 console.log(111)
+						 mui.toast(res.data);
+						 setTimeout(function(){
+							 location.href='Edit_the_information.html';
+						 },1000)
+					 }
+				  }
+			  })
+		})
+		$(function(){
+			var u = navigator.userAgent;
+			if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {//安卓手机
+				//alert("安卓手机");
+			// window.location.href = "mobile/index.html";
+			$('#phone').html(`<input id="f" type="file" name="img" class="imgs" onchange="change()" accept="image/jpeg,image/jpg,image/png" id="input_file" capture="camera"/>`);
+			} else if (u.indexOf('iPhone') > -1) {//苹果手机
+			// window.location.href = "mobile/index.html";
+			//alert("苹果手机");
+				$('#phone').html(`<input id="f" type="file" name="img" class="imgs" onchange="change()" accept="image/jpeg,image/jpg,image/png" id="input_file"/>`);
+			} else if (u.indexOf('Windows Phone') > -1) {//winphone手机
+			//alert("winphone手机");
+			// window.location.href = "mobile/index.html";
+			}
+		})
+
+	</script>
+ </body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>充值明细</title>
+		<script src="../js/jquery.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<style type="text/css">
+			* {
+				font-family: "微软雅黑";
+			}
+		</style>
+	</head>
+	<body>
+		<!-- 头部 -->
+		<header class="mui-bar mui-bar-nav black theme-color">
+			<a class="mui-icon mui-icon-left-nav" style="color: #fff;" href="center.html"></a>
+			<h1 class="mui-title" style="color: #fff;">充值明细</h1>
+		</header>
+		<div class="mui-content">
+			<div id="slider" class="mui-slider">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted bg-w">
+					<a class="mui-control-item mui-active" href="#item1mobile">
+						已成功
+					</a>
+					<a class="mui-control-item" href="#item2mobile">
+						正在处理
+					</a>
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="base-info md-f1 mui-slider-item mui-control-content detailInfos md-box md-ver mui-active"
+					 style="border-bottom: none;">
+						<ul class="mui-table-view">
+							<!-- <li class="mui-table-view-cell">
+								<a class="mui-navigate-right">
+									<span style="font-size: 20px;">2018-2-12</span><br>
+									<span style="font-size: 18px;color: red;display: inline-block;margin-top: 10px;">-100￥</span>
+									<span style="float: right;color: green;font-size: 20px;margin:8px 25px;">成功</span>
+									<span style="display: block; margin-top: 10px;font-size: 10px;color: #CCCCCC;">订单编号: 1207309237063407</span>
+								</a>
+							</li> -->
+						</ul>
+					</div>
+					
+					<div id="item2mobile" class="apply bg md-f1 mui-slider-item mui-control-content detailInfos2 md-box md-ver" style="border-bottom: none;">
+						<ul class="mui-table-view">
+							<!-- <li class="mui-table-view-cell">
+								<a class="mui-navigate-right">
+									<span style="font-size: 20px;">2018-2-12</span><br>
+									<span style="font-size: 18px;color: red;display: inline-block;margin-top: 10px;">-100￥</span>
+									<span style="float: right;color: #000000;font-size: 17px;margin:8px 25px;">正在处理</span>
+									<span style="display: block; margin-top: 10px;font-size: 10px;color: #CCCCCC;">订单编号: 1207309237063407</span>
+								</a>
+							</li> -->
+						</ul>
+					</div>
+				</div>
+			</div>
+</div>
+			<script src="../js/common.js"></script>
+			<script type="text/javascript">
+				$(function(){
+					var data =JSON.parse(localStorage.user);
+					$.get(url()+'/api/order_list_s',data,function(data){
+						if(data.status==200){
+							var data=data.data;
+							var html=''
+							for(var i=0;i<data.length;i++){
+								var date = dateTime(data[i].update_time);
+								html +=`<li class="mui-table-view-cell">
+									<a class="mui-navigate-right" href='Recharge_detail.html?order=${data[i].order}'>
+										<span style="font-size: 20px;">${date}</span><br>
+										<span style="font-size: 18px;color: red;display: inline-block;margin-top: 10px;">${data[i].money}￥</span>
+										<span style="float: right;color: green;font-size: 18px;margin:8px 25px;">成功</span>
+										<span style="display: block; margin-top: 10px;font-size: 10px;color: #CCCCCC;">订单编号: ${data[i].order}</span>
+									</a>
+								</li>`;
+							}
+							$('#item1mobile .mui-table-view').append(html);	
+						}
+						if(data.status==-1){
+							mui.toast(data.data)
+						}
+					})
+					
+					$.get(url()+'/api/order_list_c',data,function(data){
+						if(data.status==200){
+							var data=data.data;
+							var html=''
+							for(var i=0;i<data.length;i++){
+								var date = dateTime(data[i].create_time);
+								html +=`<li class="mui-table-view-cell">
+									<a class="mui-navigate-right" href='Recharge_detail.html?order=${data[i].order}'>
+										<span style="font-size: 20px;">${date}</span><br>
+										<span style="font-size: 18px;color: red;display: inline-block;margin-top: 10px;">${data[i].money}￥</span>
+										<span style="float: right;font-size: 18px;margin:8px 25px;">处理中</span>
+										<span style="display: block; margin-top: 10px;font-size: 10px;color: #CCCCCC;">订单编号: ${data[i].order}</span>
+									</a>
+								</li>`;
+							}
+							$('#item2mobile .mui-table-view').append(html);	
+						}
+						
+					})
+				})
+				
+				
+			</script>
+	</body>
+</html>

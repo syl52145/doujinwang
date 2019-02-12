@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>订单提交</title>
+		<script src="../js/jquery.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<style type="text/css">
+			* {
+				font-family: "微软雅黑";
+			}
+			.post-btn{
+				width: 80%;
+				border-radius: 10px;
+				margin-left:10%;
+				position: fixed;
+				bottom:50px;
+			}
+			.mui-slider-item{
+				border-bottom: 0 !important;
+			}
+			.item{
+				width: 100%;
+				padding:20px 20px;
+				height: 500px;
+				position: relative;
+			}
+			p{
+				font-size: 16px;
+			}
+			.item img{
+				position: absolute;
+				top:40%;
+				left:50%;
+				transform: translate(-50%,-50%);
+			}
+		</style>
+	</head>
+	<body>
+		<!-- 头部 -->
+		<header class="mui-bar mui-bar-nav black theme-color">
+			<a class="mui-icon mui-icon-left-nav" style="color: #fff;" href="../index.html"></a>
+			<h1 class="mui-title" style="color: #fff;">订单提交</h1>
+		</header>
+		<div class="mui-content">
+			<div id="slider" class="mui-slider">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted bg-w">
+					<a class="mui-control-item mui-active" href="#item1mobile">
+						银行卡
+					</a>
+					<a class="mui-control-item" href="#item2mobile">
+						微信
+					</a>
+					<a class="mui-control-item" href="#item3mobile">
+						支付宝
+					</a>
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
+				<div class="mui-slider-group" style="height: 100%;">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div class="item" id="bank">
+							<!-- <p style="margin-top: 20px;">
+								<span style="display: inline-block;width: 60px;">银行卡</span>
+								<span style="color: #8f8f94;">8888-8888-8888-888x</span>
+							</p>
+							
+							
+							<p style="margin-left: 65px;">建设银行</p>
+							<p style="margin-left: 65px;">某某公司</p> -->
+						</div>
+							
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div class="item center">
+							<img id="weixin" src="" style="width:80%;">
+						</div>	
+					</div>
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+						<div class="item center">
+							<img id="zhifubao" src="" style="width:80%;">
+						</div>
+							
+							
+					</div>
+				</div>
+			</div>
+			<button type="button" class=".mui-btn-block theme-color post-btn" style="margin-top:20px;z-index: 100;">提交</button>
+</div>
+			<script src="../js/common.js"></script>
+			<script type="text/javascript">
+				//var index = dhIndex;//0银行卡 2微信 1支付宝
+// 				document.getElementById('slider').addEventListener('slide', function(e) { //监听切换下标
+// 					if (e.detail.slideNumber === 0) {
+// 						//console.log(0)
+// 						index = 0;
+// 					}
+// 					if (e.detail.slideNumber === 1) {//微信
+// 						//console.log(1)
+// 						index = 1;
+// 					}
+// 					if (e.detail.slideNumber === 2) {//支付宝
+// 						//console.log(2)
+// 						index = 2;
+// 					}
+// 				})
+				sessionStorage.removeItem('weixin');
+				sessionStorage.removeItem('zhifubao');
+				$("button.post-btn").click(function(){
+						var index = dhIndex.index;
+						//console.log(index);
+						if(index == 1){
+							index =2;
+						}else if(index == 2){
+							index =1;
+						}
+						var data = JSON.parse(sessionStorage.data);
+						if(!data){
+							mui.toast("暂无数据，请返回上一级")
+							return;
+						}
+						data.type = index;
+						console.log(index);
+						$.post(url()+"/api/order", data, function(res) {
+							//location.href = "www.baidu.com"
+							if(res.status == 200) {
+								sessionStorage.removeItem("data");
+								mui.toast("下单成功 返回首页");
+								setTimeout(function(){
+									location.href = "../index.html"
+								},1000)
+							}
+							if(res.status==-1){
+								mui.toast(res.data)
+							}
+						})
+				})
+				var data = user();
+				data.pay_type = 0;
+				$.get(url()+'/api/pay_bank',data,function(data){
+					//console.log(data);
+					if(data.status==200){
+						var data=data.data;
+						$("#bank").html(`<p style="margin-top: 20px;">
+								<span style="display: inline-block;width: 60px;">银行卡</span>
+								<span style="color: #8f8f94;">${data.bank_number}</span>
+							</p>
+							<p style="margin-left: 65px;">${data.bank_name}</p>
+							<p style="margin-left: 65px;">${data.bank_city}</p>`)
+					}
+					if(data.status==-1){
+						mui.toast(data.data)
+					}
+				})
+				//监听dhIndex 变化
+					var lastTimeValue=dhIndex.index;
+					Object.defineProperty(dhIndex, 'index', {
+					  get: function() {
+						console.log('get：' + index);
+						return index;
+					  },
+					  set: function(value) {
+						index = value;
+						if(lastTimeValue!=index){
+							lastTimeValue=index;
+							if(index==2){
+								if(!sessionStorage.zhifubao){
+									var data = user();
+									data.pay_type = 1;
+									//console.log('zhifubao请求');
+									$.get(url()+'/api/pay_zhifubao',data,function(res){
+										//console.log(res)
+										if(res.status==200){
+											//console.log(111)
+											sessionStorage.zhifubao = res.data.pay_img;
+											var img = document.getElementById("zhifubao")
+												img.src=url()+res.data.pay_img;
+										}
+										if(res.status==-1){
+											mui.toast(res.data)
+										}
+									})
+								}else{
+									document.getElementById("zhifubao").src=url()+sessionStorage.zhifubao;
+								}
+								
+							}else if(index==1){
+								if(!sessionStorage.weixin){
+									var data = user();
+									data.pay_type = 2;
+									//console.log('微信支付')
+									$.get(url()+'/api/pay_weixin',data,function(res){
+										//console.log(res)
+										if(res.status==200){
+											sessionStorage.weixin = res.data.pay_img;
+											document.getElementById("weixin").src=url()+res.data.pay_img;
+										}
+										if(res.status==-1){
+											mui.toast(res.data)
+										}
+									})
+								}else{
+									document.getElementById("weixin").src=url()+sessionStorage.weixin;
+								}
+								
+							};
+						}
+					  }
+					});
+			</script>
+	</body>
+</html>

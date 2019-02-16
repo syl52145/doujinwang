@@ -24,20 +24,26 @@
 			.mui-slider-item{
 				border-bottom: 0 !important;
 			}
-			.item{
+			.item1{
 				width: 100%;
 				padding:20px 20px;
 				height: 500px;
 				position: relative;
 			}
+			.item{
+				width: 100%;
+				padding:20px 20px;
+				height: 450px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
 			p{
 				font-size: 16px;
 			}
 			.item img{
-				position: absolute;
-				top:40%;
-				left:50%;
-				transform: translate(-50%,-50%);
+				max-height: 450px;
+				max-width: 80%;
 			}
 		</style>
 	</head>
@@ -63,7 +69,7 @@
 				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
 				<div class="mui-slider-group" style="height: 100%;">
 					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
-						<div class="item" id="bank">
+						<div class="item1" id="bank">
 							<!-- <p style="margin-top: 20px;">
 								<span style="display: inline-block;width: 60px;">银行卡</span>
 								<span style="color: #8f8f94;">8888-8888-8888-888x</span>
@@ -110,9 +116,9 @@
 // 				})
 				sessionStorage.removeItem('weixin');
 				sessionStorage.removeItem('zhifubao');
+				var index = dhIndex.index;
+				
 				$("button.post-btn").click(function(){
-						var index = dhIndex.index;
-						//console.log(index);
 						if(index == 1){
 							index =2;
 						}else if(index == 2){
@@ -124,7 +130,7 @@
 							return;
 						}
 						data.type = index;
-						console.log(index);
+						//console.log(index);
 						$.post(url()+"/api/order", data, function(res) {
 							//location.href = "www.baidu.com"
 							if(res.status == 200) {

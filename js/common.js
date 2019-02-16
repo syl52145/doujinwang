@@ -142,6 +142,8 @@ function Href(url){
 
 if(document.getElementById('slider')){
 	var dhIndex = {};
+	dhIndex.index = 0;
+	//console.log(dhIndex.index)
 	document.getElementById('slider').addEventListener('slide', function(e) { //监听切换下标
 		if (e.detail.slideNumber === 0) {
 			//console.log(0)

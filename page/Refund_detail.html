@@ -91,7 +91,7 @@
 					if(data.status==200){
 						var date = dateTime(data.data.update_time)
 						$('#money').append(`<span style="font-size: 50px;line-height: 100px;color: red;">${data.data.money}<i style="font-size: 30px;color: red;">￥</i></span>`)
-						$('#status').append(`<span>入金状态:&nbsp;${data.data.tixian_result==1?'成功':'审核中'}</span>
+						$('#status').append(`<span>提现状态:&nbsp;${data.data.tixian_result==1?'成功':'审核中'}</span>
 							<span>审核日期:&nbsp;${date}</span>`)
 						
 						$('#detail').append(`<span><i>订单编号:</i>&nbsp;<p style="margin:10px 0;">${data.data.tixian_order}</p></span>

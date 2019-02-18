@@ -82,10 +82,7 @@
 									</a>
 								</li>`;
 							}
-							$('#item1mobile .mui-table-view').append(html);	
-						}
-						if(data.status==-1){
-							mui.toast(data.data)
+							$('#item1mobile .mui-table-view').html(html);	
 						}
 					})
 					
@@ -104,12 +101,71 @@
 									</a>
 								</li>`;
 							}
-							$('#item2mobile .mui-table-view').append(html);	
+							$('#item2mobile .mui-table-view').html(html);
 						}
-						if(data.status==-1){
-							//mui.toast(data.data)
-						}
+						
 					})
+					//监听dhIndex 变化
+						var lastTimeValue=dhIndex.index;
+						Object.defineProperty(dhIndex, 'index', {
+						  get: function() {
+							console.log('get：' + index);
+							return index;
+						  },
+						  set: function(value) {
+							index = value;
+							if(lastTimeValue!=index){
+								lastTimeValue=index;
+								if(index==0){
+									//console.log(000)
+									$.get(url()+'/api/tixian_list_s',data,function(data){
+										if(data.status==200){
+											var data=data.data;
+											var html=''
+											for(var i=0;i<data.length;i++){
+												var date = dateTime(data[i].update_time);
+												html +=`<li class="mui-table-view-cell">
+													<a class="mui-navigate-right" href='Refund_detail.html?order=${data[i].tixian_id}'>
+														<span style="font-size: 20px;">${date}</span><br>
+														<span style="font-size: 18px;color: red;display: inline-block;margin-top: 10px;">${data[i].money}￥</span>
+														<span style="float: right;color: green;font-size: 20px;margin:8px 25px;">成功</span>
+														<span style="display: block; margin-top: 10px;font-size: 10px;color: #CCCCCC;">订单编号: ${data[i].tixian_order}</span>
+													</a>
+												</li>`;
+											}
+											$('#item1mobile .mui-table-view').html(html);
+										}else{
+											$('#item1mobile .mui-table-view').html('');
+										}
+									})
+								}else if(index==1){
+									$.get(url()+'/api/tixian_list_c',data,function(data){
+										if(data.status==200){
+											var data=data.data;
+											var html=''
+											for(var i=0;i<data.length;i++){
+												var date = dateTime(data[i].update_time);
+												html +=`<li class="mui-table-view-cell">
+													<a class="mui-navigate-right" href='Refund_detail.html?order=${data[i].tixian_id}'>
+														<span style="font-size: 20px;">${date}</span><br>
+														<span style="font-size: 18px;color: red;display: inline-block;margin-top: 10px;">${data[i].money}￥</span>
+														<span style="float: right;font-size: 20px;margin:8px 25px;">处理中</span>
+														<span style="display: block; margin-top: 10px;font-size: 10px;color: #CCCCCC;">订单编号: ${data[i].tixian_order}</span>
+													</a>
+												</li>`;
+											}
+											$('#item2mobile .mui-table-view').html(html);
+										}else{
+											$('#item2mobile .mui-table-view').html('');
+										}
+										
+									})
+									
+								};
+							}
+						  }
+						});
+					
 				})
 				
 				

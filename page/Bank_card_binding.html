@@ -15,6 +15,11 @@
 			* {
 				font-family: "微软雅黑";
 			}
+			.btn-pos{
+				position: absolute;
+				bottom:40px;
+				margin-left:10%;
+			}
 		</style>
 	</head>
 	<body>
@@ -35,9 +40,9 @@
 				<input type="text" placeholder="开户银行所在地" style="width: 94%;border-radius: 10px;" id="back_address">
 				<input type="text" placeholder="姓名" style="width: 94%;border-radius: 10px;" id="user_name">
 			</div>
-			<center>
-				<button type="button" class=".mui-btn-block theme-color" style="width: 80%; margin-top: 340px;border-radius: 10px;" id="btn">确定</button>
-			</center>
+			
+				<button type="button" class=".mui-btn-block theme-color btn-pos" style="width: 80%; border-radius: 10px;" id="btn">确定</button>
+			
 		</div>
 		<script type="text/javascript">
 			var data = JSON.parse(localStorage.getItem("user"));

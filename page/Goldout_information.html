@@ -58,7 +58,7 @@
 				}
 				data.chujin_id = chujin_id;
 				$.get(url()+'/api/chujin_info',data,function(res){
-					console.log(res)
+					//console.log(res)
 					if(res.status==-1){
 						mui.toast(res.data)
 					}
@@ -76,7 +76,7 @@
 						<div class="mui-card-content Span">
 							<span >出金状态:&nbsp;${data.chujin_result==1?'成功':'审核中'}</span>
 							<span >审核日期:&nbsp;${date}</span>
-							<span>交易号:&nbsp;${data.order}</span>
+							<span>交易号:&nbsp;${data.chujin_order}</span>
 						</div>`
 						)
 					}

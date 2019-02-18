@@ -88,7 +88,12 @@
 				bottom:20px;
 				width: 100%;
 			}
-			
+			.mui-table-view:before{
+				background-color:transparent;
+			}
+			.mui-table-view:after{
+				background-color:transparent;
+			}
 		</style>
 	</head>
 	<body>
@@ -118,6 +123,12 @@
 							<span class="sel-li"></span>
 						</span>
 					</li> -->
+					<center style="margin-top: 35px;padding:10px;">
+						<div >
+							<span style="margin-right: 20px;">入金金额:</span>
+							<input type="text"placeholder="请输入入金金额" style="width: 62%;border-radius: 10px;" id="money">
+						</div>
+					</center>	
 				</ul>
 			</ul>
 			<center class="submit1 submit" >
@@ -127,10 +138,7 @@
 		<script src="../js/common.js"></script>
 		<script type="text/javascript">
 			$(function(){
-				$(".mui-table-view.mui-table-view-radio").on('click','.mui-table-view-cell',function () {
-					$(this).find("span.notSel").toggleClass("sel");
-					$(this).toggleClass("choose");
-				})
+				
 				var data=JSON.parse(localStorage.user);
 				
 				$.get(url()+'/api/chujin',data,function(data){
@@ -143,48 +151,23 @@
 							<span style="margin:50px 20px;position: absolute;">余额: <p style="color: red;">${data.yu_money}<p style="color: red;font-size: 10px;">￥</p>
 							</p></span>`
 						)
-						if(!data.data){
-							return;
-						}else{
-							var data=data.data
-						}
-						if(data.length>2){
-							$('.submit').removeClass('submit1')
-						}
-						for(var i=0;i<data.length;i++){
-							var date = dateTime(data[i].update_time);
-							$('.mui-table-view.mui-table-view-radio').append(
-							`<li class="mui-table-view-cell" data-id=${data[i].rujin_id}>
-								<a class="">
-									<span style="font-size: 20px;color: #000000;">${date}</span><br>
-									<span style="color: red;font-size: 20px;margin-top: -13px;">${data[i].rujin_money}￥<i style="color: #ccc;font-size: 15px;">(&nbsp;${data[i].bili}&nbsp;)</i></span><br>
-									<span style="margin-top: -18px;">${data[i].invest_type==0?'交易品种':data[i].invest_type==1?'临版强平':data[i].invest_type==2?'持仓风险':'资金风控'}</span><br>
-									<span style="margin-top: -20px;">订单编号:&nbsp;${data[i].order}</span>
-								</a>
-								<span class="notSel">
-									<span class="sel-li"></span>
-								</span>
-							</li>`)
-						}
 						
 					}
 				})
 				
 				$('button[type="button"]').click(function(){
-					var chooses = $('.choose')
-					if(chooses.length==0){
-						return;
-					}else{
-						var arr=[];
-						$.each(chooses,function(index,value){
-							arr.push($(value).attr('data-id'))
-						})
-						arr = arr.join(',')
-					}
-					data.rujin_ids=arr;
+					var money = $('#money').val();
+					if(!money){return};
+					
+					 var reg = /^\+?[1-9][0-9]*$/;　　//正整数
+					  if(!reg.test(money)){
+						  mui.toast('请输入正确的金额！')
+						  return;
+					  };
+					data.chujin_money=money;
 					$.post(url()+'/api/chujin_h',data,function(res){
 						if(res.status==200){
-							location.href='Goldout_situation.html'
+							location.href = 'Goldout_situation.html'
 						}
 						if(res.status==-1){
 							mui.toast(res.data)

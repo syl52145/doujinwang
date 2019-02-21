@@ -158,12 +158,13 @@
 				</p>
 
 			</div>
-			<center>
+			<center style="padding-bottom: 50px;">
 				<button type="button" class=".mui-btn-block theme-color" style="width: 80%;border-radius: 10px;margin-top: 40px;"
 				 id="btn">确定</button>
 			</center>
 		</div>
 		<script type="text/javascript">
+			clearTimeout(timeOut);
 			$("#btn").click(function() {
 				mui.showLoading("图片上传中..","div");
 				//获取图片
@@ -198,7 +199,11 @@
 						}
 						if(res.status==200){
 							mui.toast(res.data);
-							Href("Personal_information.html")
+							setTimeout(function(){
+								isOk("../index.html")
+							},1000)
+							
+							
 						}
 					}
 				})

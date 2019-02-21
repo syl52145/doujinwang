@@ -202,9 +202,30 @@
 		<script src="js/swiper.min.js"></script>
 		<script src="js/common.js"></script>
 		<script>
-			
+			clearTimeout(timeOut);
+			var data = user();
 			(function () {
-				loginIndex();		
+				loginIndex();	
+				if(data){
+						$.get(url()+'/api/member_xinxi',data,function(res){
+							//console.log(res);
+							if(res.status==200){
+								sessionStorage.ook=true;
+										
+							}
+							if(res.status==1){
+								sessionStorage.removeItem('ook');
+								mui.toast(res.data);
+								Href('page/Bank_card_binding.html');
+							}
+							if(res.status==2){
+								sessionStorage.removeItem('ook');
+								mui.toast(res.data);
+								Href('page/Id_Card_Binding.html');
+							}
+						})
+				}
+				
 				var swiper = new Swiper('.swiper-container', {
 					// pagination: '.swiper-pagination',
 					effect: 'coverflow',

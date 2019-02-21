@@ -45,8 +45,8 @@
 			
 		</div>
 		<script type="text/javascript">
-			var data = JSON.parse(localStorage.getItem("user"));
-			console.log(user)
+			clearTimeout(timeOut);
+			var data = user();
 			$("#btn").click(function() {
 				if(!$("#back_number").val()){
 					mui.toast("银行卡号不能为空")
@@ -77,8 +77,10 @@
 						if(data.status == 200) {
 							mui.toast("绑定成功");
 							setTimeout(function(){
-								location.href = "Personal_information.html"
+								isOk("Personal_information.html");
+								// location.href = "Personal_information.html"
 							},1000)
+							
 						}
 						if(data.status==-1){
 							mui.toast(data.data)

@@ -2,6 +2,7 @@ function url(){
 	return 'http://19123.dgxq.com'
 }
 
+
 function dateTime(timestamp){
 	  if(timestamp.toString().length<=10){
 	    var d = new Date(timestamp * 1000);// 时间戳为10位需*1000，时间戳为13位的话不需乘1000
@@ -59,6 +60,39 @@ function user(){
 	user =JSON.parse(user);
 	return user
 }
+
+function isOk(dataUrl){
+	var data = user();
+	if(data){
+		$.get(url()+'/api/member_xinxi',data,function(res){
+			//console.log(res);
+			if(res.status==200){
+				sessionStorage.ook=true;
+				if(dataUrl){
+					location.href=dataUrl;
+				}		
+			}
+			if(res.status==1){
+				sessionStorage.removeItem('ook');
+				mui.toast(res.data);
+				Href('Bank_card_binding.html');
+			}
+			if(res.status==2){
+				sessionStorage.removeItem('ook');
+				mui.toast(res.data);
+				Href('Id_Card_Binding.html');
+			}
+		})
+	}
+}
+
+if(!sessionStorage.ook){
+	var timeOut = setTimeout(function(){
+		isOk();
+	},200)	
+}
+
+
 
 function loginIndex(){
 	var login = localStorage.user;
@@ -160,3 +194,12 @@ if(document.getElementById('slider')){
 		}
 })
 }
+
+var win_h = $(window).height();//关键代码
+	window.addEventListener('resize', function () {
+		if($(window).height() < win_h){
+			$('.btn-pos').hide();
+		}else{
+			$('.btn-pos').show();
+		}
+	});
